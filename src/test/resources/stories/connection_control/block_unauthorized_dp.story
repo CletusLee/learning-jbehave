@@ -20,3 +20,13 @@ When 1 vDP named fifthDp connects to the vSCG node abcde
 Then the fifthDp should be rejected
 
 Scenario: One vSCG node can support at most four authorized vDP
+Given <amountOfDp> vDPs have connected to 1 vSCG node abcde
+When 1 vDP named newDp connects to the vSCG node abcde
+Then the newDp should be <rejectedOrPass>
+
+Examples:
+|   amountOfDp  |   rejectedOrPass  |
+|               1           |           pass            |
+|               2           |           pass            |
+|               3           |           pass            |
+|               4           |       rejected          |               

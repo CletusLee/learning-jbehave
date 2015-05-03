@@ -16,6 +16,7 @@ import org.jbehave.core.model.ExamplesTable;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.hamcrest.core.IsNull.nullValue;
 
 public class BlockUnauthorizedDpSteps {
 	
@@ -81,9 +82,14 @@ public class BlockUnauthorizedDpSteps {
 		return null;
 	}
 
-	@Then("the $dpName should be rejected")
-	public void shouldRejectDp(String dpName) {
-		assertThat(rejectDp.getName(), is(equalTo(dpName)));
+	@Then("the $dpName should be $rejectedOrPass")
+	public void shouldRejectDp(String dpName, String rejectedOrPass) {
+		if(rejectedOrPass.equals("pass")) {
+			assertThat(rejectDp, is(nullValue()));
+		} else {
+			assertThat(rejectDp.getName(), is(equalTo(dpName)));	
+		}
+		
 	}
 	
 	
